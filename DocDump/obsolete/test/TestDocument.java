@@ -9,9 +9,9 @@ import strawman.Document;
 
 public class TestDocument {
 
-	@Test
-	public void testDocument() {
-		Document doc = new Document("id");
-		Assert.assertEquals(doc.getId(), "id");
-	}
+  @Test
+  public void testDocument() {
+    Document doc = new Document("id");
+    Assert.assertEquals(doc.getId(), "id");
+  }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project name="DocDump" default="compile" >
+
+<target name="init">
+  <mkdir dir="classes" />
+  <mkdir dir="dist" />
+</target>
+
+<target name="compile" depends="init">
+  <javac srcdir="src" destdir="classes"/>
+  <echo>compilation complete!</echo>
+</target>
+
+<target name="clean" >
+  <delete includeEmptyDirs="true">
+    <fileset dir="classes" includes="**/*" />
+  </delete>
+  <delete file="dist/DocDump.jar" />
+</target>
+
+<target name="deploy" depends="compile" >
+  <jar destfile="dist/DocDump.jar"
+    basedir="classes">
+    <manifest>
+      <attribute name="Main-Class" value="ui.Program"/>
+    </manifest>
+  </jar>
+</target>
+</project>
+

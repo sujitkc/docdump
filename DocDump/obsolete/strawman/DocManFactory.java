@@ -1,17 +1,18 @@
-package docmandb;
+package strawman;
 
 import docman.ADocManFactory;
-import docman.IDocManFactory;
 import docman.IDocument;
 import docman.IDocumentMap;
 
-public class DocManFactory extends ADocManFactory implements IDocManFactory {
+public class DocManFactory extends ADocManFactory {
+  public DocManFactory() {
+  }
 
   @Override
   public IDocumentMap getDocumentMap() {
     return DocumentMap.getInstance();
   }
-
+  
   @Override
   public IDocument buildDocument() {
     String docid = this.generateDocumentId();
