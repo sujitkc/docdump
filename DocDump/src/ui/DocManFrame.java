@@ -14,11 +14,6 @@ import docman.IDocManFactory;
 
 public class DocManFrame extends JFrame implements ActionListener {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 4965429427299910727L;
-  
   IDocManFactory mDocManFactory;
   
   JButton mSearchButton = new JButton("Search");

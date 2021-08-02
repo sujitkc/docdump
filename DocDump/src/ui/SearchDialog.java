@@ -37,18 +37,8 @@ import docman.IDocumentMap;
 
 public class SearchDialog extends JDialog implements ActionListener, KeyListener {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -854492361134266994L;
-
   class SearchPanel extends JPanel implements KeyListener {
 
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5004549809822852348L;
 
     private JTextField mTextField = new JTextField(20);
     public JButton mSearchButton = new JButton("Search");
@@ -143,10 +133,6 @@ public class SearchDialog extends JDialog implements ActionListener, KeyListener
   
   class ListPanel extends JPanel {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -7397043013383131873L;
     private Map<String, String> mMap = new HashMap<String, String>();
     public JList<String> mDocumentIdList;
     public ListPanel() {
@@ -192,11 +178,6 @@ public class SearchDialog extends JDialog implements ActionListener, KeyListener
   
   class ButtonPanel extends JPanel {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5793220939602028556L;
-    
     public JButton mOpenButton = new JButton("Open");
     public JButton mDeleteButton = new JButton("Delete");
     public ButtonPanel() {

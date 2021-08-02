@@ -7,10 +7,11 @@ import docman.IDocManFactory;
 import docman.IDocument;
 
 public class AddDocumentDialog extends DocumentDialog {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -5597155924783525025L;
+
+  public AddDocumentDialog(IDocManFactory factory, boolean isStandalone) {
+    super(null, factory, isStandalone);
+    this.setTitle("Add Document - " + Program.AppName);
+  }
 
   public AddDocumentDialog(IDocManFactory factory) {
     super(null, factory);

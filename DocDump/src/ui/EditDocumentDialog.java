@@ -5,16 +5,16 @@ import docman.IDocument;
 import docman.IDocumentMap;
 
 public class EditDocumentDialog extends DocumentDialog {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -4176177399986540641L;
+
+  public EditDocumentDialog(String docid, IDocManFactory factory, boolean isStandalone) {
+    super(docid, factory, isStandalone);
+    this.setTitle("Edit Document - " + Program.AppName);
+  }
 
   public EditDocumentDialog(String docid, IDocManFactory factory) {
     super(docid, factory);
     this.setTitle("Edit Document - " + Program.AppName);
   }
-
   // EditDocumentDialog's version of init()
   // It initialises the contents of the label-panel and search panel appropriately as follows:
   // - Search panel has the URI of the document associated with this dialog.

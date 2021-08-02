@@ -100,10 +100,6 @@ public abstract class DocumentDialog extends JDialog implements ActionListener, 
   }
   
   class LabelPanel extends JPanel implements ItemListener {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
     public Map<String, JCheckBox> mMap = new HashMap<String, JCheckBox>();
     public Set<String> mRemovedLabels = new HashSet<String>();
     public Set<String> mAddedLabels = new HashSet<String>();
@@ -119,6 +115,10 @@ public abstract class DocumentDialog extends JDialog implements ActionListener, 
       this.setBorder(BorderFactory.createTitledBorder("Labels"));
     }
     
+    public LabelPanel() {
+      this(new HashSet<String>(), new HashSet<String>());
+    }
+
     private String lookupLabel(String label) {
       for(String key : this.mMap.keySet()) {
         if(key.toLowerCase().equals(label.toLowerCase())) {
@@ -182,11 +182,6 @@ public abstract class DocumentDialog extends JDialog implements ActionListener, 
   }
 
   class NewLabelPanel extends JPanel {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -8287526177677324997L;
-
     public JTextField mNewLabel = new JTextField(20);
     public JButton mAddButton = new JButton("Add");
     public NewLabelPanel() {
@@ -220,18 +215,19 @@ public abstract class DocumentDialog extends JDialog implements ActionListener, 
   protected IDocumentMap mDocumentMap;
   protected String mDocumentId;
   
-  protected SearchPanel mSearchPanel     = new SearchPanel();
-  protected LabelPanel mLabelPanel;
-  protected ButtonPanel mButtonPanel     = new ButtonPanel();
-  protected NewLabelPanel mNewLabelPanel = new NewLabelPanel();
-  
+  public final SearchPanel mSearchPanel     = new SearchPanel();
+  public       LabelPanel mLabelPanel       = new LabelPanel();
+  public final ButtonPanel mButtonPanel     = new ButtonPanel();
+  public final NewLabelPanel mNewLabelPanel = new NewLabelPanel();
+  public final boolean isStandalone;
   protected abstract void init();
   
-  public DocumentDialog(String id, IDocManFactory factory) {
+  public DocumentDialog(String id, IDocManFactory factory, boolean isStandalone) {
     this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
     this.mDocManFactory = factory;
     this.mDocumentMap = this.mDocManFactory.getDocumentMap();
     this.mDocumentId = id;
+    this.isStandalone = isStandalone;
     this.init();
     
     this.setSize(500, 450);
@@ -245,6 +241,10 @@ public abstract class DocumentDialog extends JDialog implements ActionListener, 
     this.mNewLabelPanel.mNewLabel.addKeyListener(this);
     this.mButtonPanel.mCancelButton.addActionListener(this);
     this.mButtonPanel.mSaveButton.addActionListener(this);
+  }
+
+  public DocumentDialog(String id, IDocManFactory factory) {
+    this(id, factory, false);
   }
 
   protected Set<String> getLabels() {
@@ -298,10 +298,17 @@ public abstract class DocumentDialog extends JDialog implements ActionListener, 
     }
     return false;
   }
+
+  private void exitIfStandalone() {
+      if(this.isStandalone == true) {
+        System.exit(0);
+      }
+  }
   @Override
   public void actionPerformed(ActionEvent e) {
     if(e.getSource().equals(this.mButtonPanel.mCancelButton)) {
       this.setVisible(false);
+      this.exitIfStandalone();
     }
     else if(e.getSource().equals(this.mNewLabelPanel.mAddButton)) {
       this.handleAddLabel();
@@ -309,6 +316,7 @@ public abstract class DocumentDialog extends JDialog implements ActionListener, 
     else if(e.getSource().equals(this.mButtonPanel.mSaveButton)) {
       this.saveDocument();
       this.setVisible(false);
+      this.exitIfStandalone();
     }
   }
 
